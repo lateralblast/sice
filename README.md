@@ -3,7 +3,7 @@ suit
 
 Sun Update ILOM Tool
 
-A tool written in prel that uses the Expect module to automate ILOM configuration and firmware updates.
+A tool written in Perl that uses the Expect module to automate ILOM configuration and firmware updates.
 
 Usage
 =====
