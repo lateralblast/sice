@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 # Name:         suit (Set Up ILOM Tool)
-# Version:      0.5.8
+# Version:      0.5.9
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -48,6 +48,7 @@ my $vendor_info;
 my $script_name=$0;
 my @script_file;
 my $firmware_file="firmware.txt";
+my $options="i:m:p:d:T:cneVfgahZtF";
 
 # Check local configuration
 
@@ -55,7 +56,7 @@ check_local_config();
 
 # Get command ling options
 
-getopts("i:m:p:d:T:neVfgahZtF",\%option) or print_usage();
+getopts($options,\%option) or print_usage();
 
 # Routine to get information from script header
 
@@ -140,15 +141,16 @@ sub print_usage {
   print_version();
   print "Usage: $0 -m model -i hostname -p password -[n,e,f,g]\n"; 
   print "\n";
-  print "-n Change Default password\n";
-  print "-e Enable custom settings\n";
-  print "-g Check firmware version\n";
-  print "-f Update firmware if required\n";
-  print "-a Perform all steps\n"; 
-  print "-t Run in test mode (don't do firmware update)\n";
-  print "-F Print firmware information\n"; 
-  print "-d Specify default delay [$pause sec]\n";
-  print "-T Set TFTP directory and run TFTP daemon\n";
+  print "-n: Change Default password\n";
+  print "-c: Check hosts keys (default is to ignore)\n";
+  print "-e: Enable custom settings\n";
+  print "-g: Check firmware version\n";
+  print "-f: Update firmware if required\n";
+  print "-a: Perform all steps\n"; 
+  print "-t: Run in test mode (don't do firmware update)\n";
+  print "-F: Print firmware information\n"; 
+  print "-d: Specify default delay [$pause sec]\n";
+  print "-T: Set TFTP directory and run TFTP daemon\n";
   print "\n";
   return;
 }
@@ -218,11 +220,13 @@ sub determine_hardware {
     $hardware_type="/SYS";
   }
   $ssh_session->send("show $hardware_type product_name\n");
-  $output=$ssh_session->expect($pause,'-re','MOTHERBOARD|Sun Blade|MIDPLANE|BLADE|BD|FIRE');
+  $output=$ssh_session->expect($pause,'-re','MOTHERBOARD|Sun Blade|MIDPLANE|BLADE|BD|FIRE|SPARC');
   $output=$ssh_session->after();
   chomp($output);
   $output=~s/SUN BLADE//g;
   $output=~s/SUN FIRE//g;
+  $output=~s/SPARC//g;
+  $output=~s/Enterprise//g;
   $output=~s/MODULAR SYSTEM//g;
   $output=~s/Server Module//g;
   $output=~s/GEMINI//g;
@@ -371,10 +375,17 @@ sub handle_firmware {
 sub initiate_ssh_session {
   my $result=do_known_host_check();
   my $output;
-  $ssh_session=Expect->spawn("ssh root\@$option{'i'}");
-  if ($result eq 0) {
-    $output=$ssh_session->expect($pause,'-re','yes\/no');
-    $ssh_session->send("yes\n");
+  my $password;
+  if ($option{'c'}) {
+    $result=do_known_host_check();
+    if ($result eq 0) {
+      $output=$ssh_session->expect($pause,'-re','yes\/no');
+      $ssh_session->send("yes\n");
+    }
+    $ssh_session=Expect->spawn("ssh root\@$option{'i'}");
+  }
+  else {
+    $ssh_session=Expect->spawn("ssh -o 'StrictHostKeyChecking no' root\@$option{'i'}");
   }
   if (($option{'n'})||($option{'a'})) {
     $output=$ssh_session->expect($pause,'-re','assword: ');
