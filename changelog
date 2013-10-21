@@ -117,3 +117,5 @@
 # Added 'StrictHostKeyChecking no' to ssh session
 # 0.6.0 Thu 17 Oct 2013 18:19:00 EST
 # Added -c switch for doing ssh host key check
+# 0.6.1 Mon 21 Oct 2013 14:52:28 EST
+# Updated firmware version check code

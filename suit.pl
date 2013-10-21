@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 # Name:         suit (Set Up ILOM Tool)
-# Version:      0.5.9
+# Version:      0.6.1
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -105,6 +105,7 @@ sub check_local_config {
   if (! -e "$temp_dir") {
     system("mkdir $temp_dir");
   }
+  populate_fw_array();
 }
 
 # If passed -h print help
@@ -265,6 +266,7 @@ sub check_firmware_version {
 sub get_firmware_version {
   my $lc_model=$_[0]; 
   my $record; 
+  my @number;
   my $firmware_version;
   my $firmware_file; 
   my $test_model;
@@ -275,6 +277,11 @@ sub get_firmware_version {
     ($test_model,$firmware_version,$firmware_file,$sp_build_number)=split(",",$record);
     if ($test_model=~/^$lc_model$/) {
       $tester=1;
+      $sp_build_number=~s/^r//g;
+      if ($sp_build_number=~/\./) {
+        @number=split(/\./,$sp_build_number);
+        $sp_build_number=$number[0].".".$number[1].".".$number[2];
+      }
       return($firmware_version,$firmware_file,$sp_build_number);
     }
   }
@@ -313,7 +320,9 @@ sub handle_firmware {
   my $tftp_url;
   my $tftp_command; 
   my $output;
-  my $sp_build_number=0;
+  my $ilom_check=0;
+  my $sp_build_check=0;
+  my $sp_build_number;
   my $tftpd_server;
   my $tftpd_session;
   if (($lc_model=~/x4100|x4200|x4600/)&&($uc_model!~/M2/)) {
@@ -323,14 +332,16 @@ sub handle_firmware {
   $tftp_url="tftp://$tftp_ip/$firmware_file";
   $tftp_command="load -source $tftp_url";
   $ssh_session->send("version\n");
-  $output=$ssh_session->expect($pause,'-re',$firmware_version);
+  $ilom_check=$ssh_session->expect($pause,'-re',$firmware_version);
   if ($sp_build_number!~/[0-9][0-9]/) {
-    $sp_build_number=1;
+    $ssh_session->send("show /HOST sysfw_version\n");
+    $sp_build_check=$ssh_session->expect($pause,'-re',$sp_build_number);
   }
   else {
-    $sp_build_number=$ssh_session->expect($pause,'-re',$sp_build_number);
+    $ssh_session->send("version\n");
+    $sp_build_check=$ssh_session->expect($pause,'-re',$sp_build_number);
   }
-  if (($output eq 1)&&($sp_build_number eq 1)) {
+  if (($ilom_check == 1)&&($sp_build_check == 1)) {
     print "\n";
     print "Firmware is up to date\n";
     print "\n";
