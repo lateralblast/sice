@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 # Name:         suit (Set Up ILOM Tool)
-# Version:      0.6.1
+# Version:      0.6.2
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -19,6 +19,8 @@ use Net::FTP;
 use File::Slurp;
 use File::Basename;
 use Net::TFTPd;
+use Socket;
+use Sys::Hostname;
 
 # Set up some host configuration variables
 
@@ -325,12 +327,19 @@ sub handle_firmware {
   my $sp_build_number;
   my $tftpd_server;
   my $tftpd_session;
+  my $host_name;
   if (($lc_model=~/x4100|x4200|x4600/)&&($uc_model!~/M2/)) {
     ($lc_model,$uc_model)=do_m2_check($uc_model);
   }
   ($firmware_version,$firmware_file,$sp_build_number)=get_firmware_version($lc_model);
+  if ($tftp_ip!~/[0-9]/) {
+    $host_name=hostname();
+    $tftp_ip=inet_ntoa(scalar gethostbyname($host_name))
+  }
   $tftp_url="tftp://$tftp_ip/$firmware_file";
   $tftp_command="load -source $tftp_url";
+  print "$tftp_command\n";
+  exit;
   $ssh_session->send("version\n");
   $ilom_check=$ssh_session->expect($pause,'-re',$firmware_version);
   if ($sp_build_number!~/[0-9][0-9]/) {
@@ -366,14 +375,14 @@ sub handle_firmware {
         $ssh_session->send("y\n");
         $output=$ssh_session->expect($pause,'-re','y\/n');
         $ssh_session->send("y\n");
-        if ($option{'T'}) {
-          $tftpd_server=Net::TFTPd->new('RootDir' => $option{'T'});
-          $tftpd_session=$tftpd_server->waitRQ(10);
-          $tftpd_session->processRQ();
-        }
         if ($lc_model=~/x6250/) {
           $output=$ssh_session->expect($pause,'-re','y\/n');
           $ssh_session->send("n\n");
+        }
+        if ($option{'T'}) {
+          $tftpd_server=Net::TFTPd->new('RootDir' => $option{'T'}) or die "Error creating TFTPd listener: %s", Net::TFTPd->error;
+          $tftpd_session=$tftpd_server->waitRQ(10);
+          $tftpd_session->processRQ();
         }
         $output=$ssh_session->expect(600,'-re','Firmware update is complete.');
         $ssh_session->send("\n");
