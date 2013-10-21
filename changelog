@@ -121,3 +121,5 @@
 # Updated firmware version check code
 # 0.6.2 Mon 21 Oct 2013 15:22:54 EST
 # Cleaned up TFTP code
+# 0.6.3 Mon 21 Oct 2013 16:14:23 EST
+# Removed debug code

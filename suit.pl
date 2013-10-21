@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 # Name:         suit (Set Up ILOM Tool)
-# Version:      0.6.2
+# Version:      0.6.3
 # Release:      1
 # License:      Open Source
 # Group:        System
@@ -338,8 +338,6 @@ sub handle_firmware {
   }
   $tftp_url="tftp://$tftp_ip/$firmware_file";
   $tftp_command="load -source $tftp_url";
-  print "$tftp_command\n";
-  exit;
   $ssh_session->send("version\n");
   $ilom_check=$ssh_session->expect($pause,'-re',$firmware_version);
   if ($sp_build_number!~/[0-9][0-9]/) {
