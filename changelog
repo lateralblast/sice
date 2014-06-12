@@ -1,113 +1,113 @@
-# Changes:  
-# 0.01: Thu Mar 26 22:11:01 EST 2009 
+# Changes:
+# 0.01: Thu Mar 26 22:11:01 EST 2009
 # Initial version
-# 0.0.2: Fri May  1 16:23:26 EST 2009 
+# 0.0.2: Fri May  1 16:23:26 EST 2009
 # Added self update code
-# 0.0.3: Fri May  1 17:59:35 EST 2009 
-# Fixed up temp dir creation 
-# 0.0.4: Fri May  1 18:17:15 EST 2009 
-# Added code to check options 
-# 0.0.5: Sat May  2 18:21:13 EST 2009 
+# 0.0.3: Fri May  1 17:59:35 EST 2009
+# Fixed up temp dir creation
+# 0.0.4: Fri May  1 18:17:15 EST 2009
+# Added code to check options
+# 0.0.5: Sat May  2 18:21:13 EST 2009
 # Added more models and check for M2
-# 0.0.6: Sun May  3 12:48:58 EST 2009 
+# 0.0.6: Sun May  3 12:48:58 EST 2009
 # Fixed typo with X4100 firmware location
-# 0.0.7: Sun May  3 15:40:57 EST 2009 
+# 0.0.7: Sun May  3 15:40:57 EST 2009
 # Cleaned up processing and output
-# 0.0.8: Tue Jun  2 08:57:26 EST 2009 
-# Added blades to hardware detection 
-# 0.0.9: Tue Jun  2 17:39:29 EST 2009 
+# 0.0.8: Tue Jun  2 08:57:26 EST 2009
+# Added blades to hardware detection
+# 0.0.9: Tue Jun  2 17:39:29 EST 2009
 # Added platform test for chassis
-# 0.1.0: Tue Jun  2 20:01:02 EST 2009 
+# 0.1.0: Tue Jun  2 20:01:02 EST 2009
 # Added support to change defaults for chassis
-# 0.1.1: Thu Jun 11 20:14:05 EST 2009 
-# Updated x6250 firmware to 3.0.3.33 
-# 0.1.2: Thu Jun 11 21:08:26 EST 2009 
-# Added support to check firmware on chassis 
-# 0.1.3: Thu Jul  2 19:46:05 EST 2009 
+# 0.1.1: Thu Jun 11 20:14:05 EST 2009
+# Updated x6250 firmware to 3.0.3.33
+# 0.1.2: Thu Jun 11 21:08:26 EST 2009
+# Added support to check firmware on chassis
+# 0.1.3: Thu Jul  2 19:46:05 EST 2009
 # Fixed syslog server entries
-# 0.1.4: Thu Aug 27 18:36:04 EST 2009 
+# 0.1.4: Thu Aug 27 18:36:04 EST 2009
 # Updated ILOM version for x6270
-# 0.1.5: Sat Aug 29 10:08:20 EST 2009 
-# Added timezone support for ILOM 3 
-# 0.1.6: Sat Aug 29 10:27:07 EST 2009 
-# Added BLADE to hardware check code 
-# 0.1.7: Sat Sep 26 11:24:57 EST 2009 
+# 0.1.5: Sat Aug 29 10:08:20 EST 2009
+# Added timezone support for ILOM 3
+# 0.1.6: Sat Aug 29 10:27:07 EST 2009
+# Added BLADE to hardware check code
+# 0.1.7: Sat Sep 26 11:24:57 EST 2009
 # Updated Blade Chassis firmware to 3.0.6.11
-# 0.1.8: Mon Dec 21 21:11:40 EST 2009 
+# 0.1.8: Mon Dec 21 21:11:40 EST 2009
 # Updated Blade Chassis firmware to 3.0.6.11b
-# 0.1.9: Mon Dec 21 21:36:53 EST 2009 
-# Updated x6250 firmware to 3.0.6.13 
-# 0.2.0: Mon Dec 21 21:41:52 EST 2009 
-# Updated x6270 firmware to 3.0.6.10 
-# 0.2.1: Mon Dec 21 21:47:59 EST 2009 
-# Added support for x6275 
-# 0.2.2: Mon Dec 21 21:51:12 EST 2009 
-# Added support for x6450 
-# 0.2.3: Mon Dec 21 21:55:36 EST 2009 
-# Updated x6220 firmware to 3.0.3.34 
-# 0.2.4: Mon Dec 21 22:00:56 EST 2009 
-# Added support for x6240 
-# 0.2.5: Mon Dec 21 22:05:27 EST 2009 
-# Added support for x6440 
-# 0.2.6: Mon Dec 21 22:10:41 EST 2009 
+# 0.1.9: Mon Dec 21 21:36:53 EST 2009
+# Updated x6250 firmware to 3.0.6.13
+# 0.2.0: Mon Dec 21 21:41:52 EST 2009
+# Updated x6270 firmware to 3.0.6.10
+# 0.2.1: Mon Dec 21 21:47:59 EST 2009
+# Added support for x6275
+# 0.2.2: Mon Dec 21 21:51:12 EST 2009
+# Added support for x6450
+# 0.2.3: Mon Dec 21 21:55:36 EST 2009
+# Updated x6220 firmware to 3.0.3.34
+# 0.2.4: Mon Dec 21 22:00:56 EST 2009
+# Added support for x6240
+# 0.2.5: Mon Dec 21 22:05:27 EST 2009
+# Added support for x6440
+# 0.2.6: Mon Dec 21 22:10:41 EST 2009
 # Added support for x41,2,440
 # 0.2.8: Mon Dec 21 22:19:22 EST 2009
 # Added support for x4640
-# 0.2.9: Mon Dec 21 22:23:43 EST 2009 
+# 0.2.9: Mon Dec 21 22:23:43 EST 2009
 # Added support for x4500
-# 0.3.0: Mon Dec 21 22:34:42 EST 2009 
+# 0.3.0: Mon Dec 21 22:34:42 EST 2009
 # Added support for x41,250
-# 0.3.1: Mon Dec 21 22:44:49 EST 2009 
+# 0.3.1: Mon Dec 21 22:44:49 EST 2009
 # Added support for x41,270 and X4275
-# 0.3.2: Thu Jan 28 07:13:56 EST 2010 
+# 0.3.2: Thu Jan 28 07:13:56 EST 2010
 # Fixed support for x41,270 and X4275
-# 0.3.3: Sun Feb 21 15:04:42 EST 2010 
+# 0.3.3: Sun Feb 21 15:04:42 EST 2010
 # Added support for yet more inconsistencies in Sun naming schemes
-# 0.3.4: Wed Feb 24 23:22:50 EST 2010 
-# Added support for different SP build numbers 
-# 0.3.5: Sat Feb 27 11:28:03 EST 2010 
-# Updated x6250 firmware SP build to 52345 
-# 0.3.6: Sat Feb 27 11:35:22 EST 2010 
-# Updated x6270 firmware to 3.0.6.21 
-# 0.3.7: Sat Feb 27 11:42:55 EST 2010 
-# Updated x6275 firmware SP build to 50660 
-# 0.3.8: Sat Feb 27 11:49:28 EST 2010 
-# Updated x6450 firmware SP build to 52345 
-# 0.3.9: Sat Feb 27 11:55:38 EST 2010 
+# 0.3.4: Wed Feb 24 23:22:50 EST 2010
+# Added support for different SP build numbers
+# 0.3.5: Sat Feb 27 11:28:03 EST 2010
+# Updated x6250 firmware SP build to 52345
+# 0.3.6: Sat Feb 27 11:35:22 EST 2010
+# Updated x6270 firmware to 3.0.6.21
+# 0.3.7: Sat Feb 27 11:42:55 EST 2010
+# Updated x6275 firmware SP build to 50660
+# 0.3.8: Sat Feb 27 11:49:28 EST 2010
+# Updated x6450 firmware SP build to 52345
+# 0.3.9: Sat Feb 27 11:55:38 EST 2010
 # Updated x41,2,440 firmware to 3.0.6.16
-# 0.4.0: Sat Feb 27 12:00:59 EST 2010 
+# 0.4.0: Sat Feb 27 12:00:59 EST 2010
 # Updated x4640 firmware to 3.0.3.31.b
-# 0.4.1: Sat Feb 27 12:16:20 EST 2010 
-# Added support for x2250 
-# 0.4.2: Sat Feb 27 12:16:20 EST 2010 
-# Added support for x2270 
-# 0.4.3: Sat Feb 27 12:26:58 EST 2010 
-# Updated x41,250 firmware SP build to 52422 
-# 0.4.4: Sat Feb 27 12:42:25 EST 2010 
+# 0.4.1: Sat Feb 27 12:16:20 EST 2010
+# Added support for x2250
+# 0.4.2: Sat Feb 27 12:16:20 EST 2010
+# Added support for x2270
+# 0.4.3: Sat Feb 27 12:26:58 EST 2010
+# Updated x41,250 firmware SP build to 52422
+# 0.4.4: Sat Feb 27 12:42:25 EST 2010
 # Updated x41,270 firmware to 3.0.6.21
-# 0.4.5: Sat Feb 27 13:08:02 EST 2010 
-# Added support for x4450 
-# 0.4.6: Mon Mar  1 16:59:52 EST 2010 
-# Cleaned up handling of fru_name 
-# 0.4.7: Tue Mar  2 14:16:23 EST 2010 
+# 0.4.5: Sat Feb 27 13:08:02 EST 2010
+# Added support for x4450
+# 0.4.6: Mon Mar  1 16:59:52 EST 2010
+# Cleaned up handling of fru_name
+# 0.4.7: Tue Mar  2 14:16:23 EST 2010
 # Changed to using product_name
-# 0.4.8: Tue Mar  2 14:21:54 EST 2010 
+# 0.4.8: Tue Mar  2 14:21:54 EST 2010
 # Fixed usage of product_name
-# 0.4.9: Tue Mar 30 11:09:45 EST 2010 
-# Added support for T6340 
-# 0.5.0: Tue Mar 30 12:14:22 EST 2010 
-# Added support for creating admin account on T series 
-# 0.5.1: Tue Jun 29 19:32:37 EST 2010 
-# Changed pause to 5s for config section to stop timeout of connection 
-# 0.5.2: Mon Aug  9 14:53:28 EST 2010 
-# Updated firmware releases in line with new Oracle page 
-# 0.5.3: Mon Aug 30 18:15:38 EST 2010 
-# Fixed typo with enabling ntp 
-# 0.5.4: Mon Oct  4 02:44:23 EST 2010 
+# 0.4.9: Tue Mar 30 11:09:45 EST 2010
+# Added support for T6340
+# 0.5.0: Tue Mar 30 12:14:22 EST 2010
+# Added support for creating admin account on T series
+# 0.5.1: Tue Jun 29 19:32:37 EST 2010
+# Changed pause to 5s for config section to stop timeout of connection
+# 0.5.2: Mon Aug  9 14:53:28 EST 2010
+# Updated firmware releases in line with new Oracle page
+# 0.5.3: Mon Aug 30 18:15:38 EST 2010
+# Fixed typo with enabling ntp
+# 0.5.4: Mon Oct  4 02:44:23 EST 2010
 # Added latest b600 FW
-# 0.5.5: Thu Sep 22 09:08:27 EST 2011 
+# 0.5.5: Thu Sep 22 09:08:27 EST 2011
 # Added latest X2250 Firmware
-# 0.5.6: Thu Sep 22 14:22:51 EST 2011 
+# 0.5.6: Thu Sep 22 14:22:51 EST 2011
 # Updated B6000 Firmware to 65050
 # 0.5.7 Fri 12 Jul 2013 22:01:04 EST
 # Cleaned up code and posted on github
@@ -123,3 +123,5 @@
 # Cleaned up TFTP code
 # 0.6.3 Mon 21 Oct 2013 16:14:23 EST
 # Removed debug code
+# 0.6.4: Thu 12 Jun 2014 22:39:19 EST
+# Updated documentation and license

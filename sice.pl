@@ -1,9 +1,10 @@
 #!/usr/bin/env perl
 
-# Name:         suit (Set Up ILOM Tool)
-# Version:      0.6.3
+# Name:         sice (Sun ILOM Configure Environment)
+# Version:      0.6.4
 # Release:      1
-# License:      Open Source
+# License:      CC-BA (Creative Commons By Attrbution)
+#               http://creativecommons.org/licenses/by/4.0/legalcode
 # Group:        System
 # Source:       N/A
 # URL:          http://lateralblast.com.au/
@@ -24,24 +25,24 @@ use Sys::Hostname;
 
 # Set up some host configuration variables
 
-my $syslog_1="XXX.XXX.XXX.XXX"; 
+my $syslog_1="XXX.XXX.XXX.XXX";
 my $syslog_2="XXX.XXX.XXX.XXX";
-my $ntp_1="XXX.XXX.XXX.XXX"; 
+my $ntp_1="XXX.XXX.XXX.XXX";
 my $ntp_2="XXX.XXX.XXX.XXX";
 my $timezone="Australia/Melbourne";
 my $expect_prompt="->";
-my $tftp_ip="XXX.XXX.XXX.XXX"; 
+my $tftp_ip="XXX.XXX.XXX.XXX";
 
 # General setup
 
 my $ssh_session;
-my %option; 
+my %option;
 my $verbose;
-my @cfg_array; 
-my @password_array; 
+my @cfg_array;
+my @password_array;
 my @fw_array;
-my $pause=10; 
-my $os_vers=`uname -a`; 
+my $pause=10;
+my $os_vers=`uname -a`;
 my $temp_dir;
 my $script_info;
 my $version_info;
@@ -142,16 +143,16 @@ if ($option{'F'}) {
 
 sub print_usage {
   print_version();
-  print "Usage: $0 -m model -i hostname -p password -[n,e,f,g]\n"; 
+  print "Usage: $0 -m model -i hostname -p password -[n,e,f,g]\n";
   print "\n";
   print "-n: Change Default password\n";
   print "-c: Check hosts keys (default is to ignore)\n";
   print "-e: Enable custom settings\n";
   print "-g: Check firmware version\n";
   print "-f: Update firmware if required\n";
-  print "-a: Perform all steps\n"; 
+  print "-a: Perform all steps\n";
   print "-t: Run in test mode (don't do firmware update)\n";
-  print "-F: Print firmware information\n"; 
+  print "-F: Print firmware information\n";
   print "-d: Specify default delay [$pause sec]\n";
   print "-T: Set TFTP directory and run TFTP daemon\n";
   print "\n";
@@ -195,12 +196,12 @@ sub print_fw_array {
   }
   return;
 
-} 
+}
 
 sub populate_fw_array {
   # NB. to add support for a new fw version you'll need to:
   # - Update the firmware list
-  # - This can be done manually 
+  # - This can be done manually
   #   http://www.oracle.com/technetwork/systems/patches/firmware/release-history-jsp-138416.html#M10-1
   # - or using the goofball tool
   #   https://github.com/richardatlateralblast/goofball
@@ -212,7 +213,7 @@ sub populate_fw_array {
 # Determine what hardware we are running on
 
 sub determine_hardware {
-  my $output; 
+  my $output;
   my $chassis_test=0;
   my $hardware_type;
   $chassis_test=determine_if_chassis();
@@ -252,7 +253,7 @@ sub determine_hardware {
 # Need this as some commands changes from version 2 to 3
 
 sub check_firmware_version {
-  my $firmware_version=2; 
+  my $firmware_version=2;
   my $output;
   my $test_version=" 3.";
   $ssh_session->send("version\n");
@@ -263,16 +264,16 @@ sub check_firmware_version {
   return($firmware_version);
 }
 
-# Get the actual 
+# Get the actual
 
 sub get_firmware_version {
-  my $lc_model=$_[0]; 
-  my $record; 
+  my $lc_model=$_[0];
+  my $record;
   my @number;
   my $firmware_version;
-  my $firmware_file; 
+  my $firmware_file;
   my $test_model;
-  my $tester=0; 
+  my $tester=0;
   my $sp_build_number;
   foreach $record (@fw_array) {
     chomp($record);
@@ -295,12 +296,12 @@ sub get_firmware_version {
 }
 
 sub do_m2_check {
-  my $uc_model=$_[0]; 
+  my $uc_model=$_[0];
   my $m2_string="M2";
-  my $test_string1="$uc_model$m2_string"; 
-  my $test_string2="$uc_model $m2_string";  
+  my $test_string1="$uc_model$m2_string";
+  my $test_string2="$uc_model $m2_string";
   my $test_string="$test_string1|$test_string2";
-  my $lc_model=lc($uc_model); 
+  my $lc_model=lc($uc_model);
   my $output=0;
   $ssh_session->send("show /SYS/MB fru_name\n");
   $output=$ssh_session->expect($pause,'-re',$test_string);
@@ -310,17 +311,17 @@ sub do_m2_check {
     print "\n";
     $lc_model=lc($test_string1);
     $uc_model=$test_string1;
-  } 
+  }
   return($lc_model,$uc_model);
 }
 
 sub handle_firmware {
   my $uc_model=uc($option{'m'});
   my $lc_model=lc($option{'m'});
-  my $firmware_version; 
+  my $firmware_version;
   my $firmware_file;
   my $tftp_url;
-  my $tftp_command; 
+  my $tftp_command;
   my $output;
   my $ilom_check=0;
   my $sp_build_check=0;
@@ -416,16 +417,16 @@ sub initiate_ssh_session {
   $output=$ssh_session->expect(15,'-re','->');
   $ssh_session->send("\n");
   return;
-} 
+}
 
 sub do_known_host_check {
-  my $result=0; 
+  my $result=0;
   my $host_test;
-  my $home_dir; 
-  my $host_file; 
+  my $home_dir;
+  my $host_file;
   $home_dir=`echo \$HOME`;
   chomp($home_dir);
-  $host_file="$home_dir/.ssh/known_hosts";  
+  $host_file="$home_dir/.ssh/known_hosts";
   $host_test=`cat $host_file |grep -i '$option{'i'}'`;
   chomp($host_test);
   if ($host_test=~/$option{'i'}/) {
@@ -433,10 +434,10 @@ sub do_known_host_check {
   }
   return($result);
 }
-  
+
 
 sub populate_password_array {
-  my $chassis_test=$_[0]; 
+  my $chassis_test=$_[0];
   if ($chassis_test eq 1) {
     push(@password_array,"$expect_prompt,set /CMM/users/root password");
   }
@@ -464,10 +465,10 @@ sub determine_if_chassis {
 }
 
 sub change_ilom_password {
-  my $record; 
-  my $match; 
-  my $response; 
-  my $output; 
+  my $record;
+  my $match;
+  my $response;
+  my $output;
   my $chassis_test;
   $chassis_test=determine_if_chassis();
   populate_password_array($chassis_test);
@@ -489,21 +490,21 @@ sub check_alom_user {
   $output=$ssh_session->expect($pause,'-re','Invalid');
   return($output);
 }
-  
+
 
 sub populate_cfg_array {
-  my $identifier_name=$option{'i'}; 
+  my $identifier_name=$option{'i'};
   my $firmware_version=check_firmware_version();
-  my $chassis_test=0; 
+  my $chassis_test=0;
   my $hardware_type="SP";
-  my $date_string; 
+  my $date_string;
   my $alom_user=0;
   $chassis_test=determine_if_chassis();
   if ($chassis_test eq 1) {
     $hardware_type="CMM";
   }
-  $identifier_name=~s/\-mgt$//g;  
-  $identifier_name=~s/\-c$//g;  
+  $identifier_name=~s/\-mgt$//g;
+  $identifier_name=~s/\-c$//g;
   push(@cfg_array,"$expect_prompt,set /$hardware_type hostname=$option{'i'}");
   push(@cfg_array,"$expect_prompt,set /$hardware_type system_identifier=$identifier_name");
   if ($firmware_version eq 3) {
@@ -535,9 +536,9 @@ sub populate_cfg_array {
 
 sub configure_ilom {
   my $record;
-  my $match; 
+  my $match;
   my $response;
-  my $output; 
+  my $output;
   $pause="5";
   populate_cfg_array();
   foreach $record (@cfg_array) {
