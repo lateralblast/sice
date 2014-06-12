@@ -87,11 +87,11 @@ Requirements
 
 The following Perl modules are required:
 
-- Expect;
-- Getopt::Std;
-- Net::FTP;
-- File::Slurp;
-- File::Basename;
-- Net::TFTPd;
-- Socket;
-- Sys::Hostname;
+- Expect
+- Getopt::Std
+- Net::FTP
+- File::Slurp
+- File::Basename
+- Net::TFTPd
+- Socket
+- Sys::Hostname
