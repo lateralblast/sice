@@ -39,7 +39,7 @@ Examples
 Check firmware version:
 
 ```
-$ ./suit.pl -i 192.168.1.230 -p changeme -g
+$ sice.pl -i 192.168.1.230 -p changeme -g
 Password:
 Waiting for daemons to initialize...
 Daemons ready
