@@ -1,7 +1,8 @@
 ![alt tag](https://raw.githubusercontent.com/lateralblast/sice/master/sice.jpg)
 
 > n.  1.  The number six at dice.
-> ---<cite> Webster's Revised Unabridged Dictionary, published 1913 by C. & G. Merriam Co. </cite>
+<br>
+> -- <cite> Webster's Revised Unabridged Dictionary, published 1913 by C. & G. Merriam Co. </cite>
 
 SICE
 ====
